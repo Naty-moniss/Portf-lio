@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfólio de Programação</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@700&display=swap');
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color: #1f1f1f;
+            padding: 0.5rem 1rem;
+            border-bottom: 3px solid #9b59b6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header h1 {
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #9b59b6;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .heart-icon {
+            width: 16px;
+            height: 16px;
+            fill: #8a6fc1;
+        }
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            color: #af7ac5;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding-bottom: 0.25rem;
+            user-select: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #d2aae3;
+        }
+        nav a.active {
+            color: #d2aae3;
+        }
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: #d2aae3;
+            border-radius: 2px;
+            animation: highlightIn 0.3s ease forwards;
+        }
+        @keyframes highlightIn {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+        header .nav-container {
+            display: flex;
+            align-items: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 2rem auto 4rem;
+            padding: 0 1rem;
+            text-align: left;
+        }
+        .header-spacing {
+            margin-top: 3rem;
+        }
+        section {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+        h2 {
+            font-family: 'Merriweather', serif;
+            border-bottom: 2px solid #9b59b6;
+            padding-bottom: 0.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #d2aae3;
+            text-align: center; /* Centralizando os títulos h2 */
+        }
+        h3 {
+            text-align: center; /* Centralizando os títulos h3 */
+        }
+        .section-spacing {
+            margin-bottom: 4rem;
+        }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            text-align: center;
+            justify-content: center;
+        }
+        .skill {
+            background-color: #9b59b6;
+            color: #121212;
+            padding: 0.4rem 0.8rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .projects-grid {
+          @media screen {  
+            max-width: 600px;  }
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 1 coluna em telas menores */
+            grid-template-columns: repeat(2,1fr);
+             gap: 30px;
+            padding: 20px 0;
+        }
+    
+        .project-card {
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-image {
+            height: 300px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        .project-info {
+            padding: 15px;
+            text-align: center;
+        }
+        .project-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #9b59b6;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .tag {
+            background-color: #9b59b6;
+            color: #121212;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        .services-section {
+            margin: 3rem 0;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        .service-card {
+            background: #121212;
+            border: 2px solid #9b59b6;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #9b59b6, #8e44ad, #9b59b6);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+        }
+        .service-card:hover::before {
+            opacity: 0.7;
+        }
+        .service-card h3 {
+            color: #d2aae3;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .service-card p {
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        footer {
+            background-color: #1f1f1f;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            color: #af7ac5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            border-top: 2px solid #9b59b6;
+        }
+        .contact-links a {
+            color: #9b59b6;
+            margin: 0 0.8rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .contact-links a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            header {
+                flex-direction: center;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+            nav {
+                gap: 1.2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+            header .nav-container {
+                justify-content: center;
+                width: 100%;
+            }
+            header h1 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animação de máquina de escrever */
+        .animated-text-wrapper {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .animated-text {
+            font-size: 1.5rem;
+            color: #8A2BE2; /* Roxo uva */
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 3s steps(30, end) forwards;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+.language-selector {
+    position: relative;
+    display: inline-block;
+}
+.round-button {
+    background-color: #060007;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%; /* Torna o botão redondo */
+    cursor: pointer;
+    font-size: 1.5rem; /* Tamanho do ícone */
+    width: 50px; /* Largura do botão */
+    height: 50px; /* Altura do botão */
+    transition: background-color 0.3s;
+}
+
+.round-button:hover {
+    background-color: #8e44ad; /* Cor ao passar o mouse */ 
+ }
+
+#language-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+#language-list li:hover {
+    background-color: #f0f0f048;
+}
+.hidden {
+    display: none; /* Classe para ocultar a lista */
+ }
+
+        .language-selector {
+    position: relative;
+    display: inline-block;
+}
+.round-button {
+    background-color: #05010105;
+    color: rgb(179, 89, 231);
+    border: none;
+    padding: 10px;
+    border-radius: 50%; /* Torna o botão redondo */
+    cursor: pointer;
+    font-size: 1.5rem; /* Tamanho do ícone */
+    width: 50px; /* Largura do botão */
+    height: 50px; /* Altura do botão */
+    transition: background-color 0.3s;
+}
+.round-button:hover {
+    background-color: #8e44ad; /* Cor ao passar o mouse */
+}
+#language-list {
+    position: absolute;
+    background-color: rgb(175, 77, 237);
+    border: 1px solid #9b59b6;
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+     }
+    </style>
+</head>
+<body>
+<header>
+  <h1 id="logo" tabindex="0" aria-label="Seu nome">
+    <svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 
+               3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 
+               16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 
+               11.54L12 21.35z"/>
+    </svg>
+    Nataly Monique
+  </h1>
+  <div class="nav-container">
+    <nav id="menu">
+      <a href="#about" class="active">Sobre Mim</a>
+      <a href="#projects">Projetos</a>
+      <a href="#contact">Contato</a>
+      <a href="#servicos">Serviços contratáveis</a>
+      <a href="#habilidades">Minhas Habilidades</a>
+    </nav>
+  </div>
+
+  <div class="language-selector">
+    <button id="language-button" class="round-button">🌐</button>
+    <ul id="language-list" class="hidden">
+        <li data-lang="en">English</li>
+        <li data-lang="pt">Português</li>
+        <li data-lang="es">Español</li>
+        <li data-lang="it"> Italian</li>
+        <li data-lang="jp">Japan</li>
+    </ul>
+</div>
+</header>
+
+<div class="header-spacing"></div>
+
+<div class="animated-text-wrapper">
+  <div class="animated-text" id="animated-text">Codificando ideias...</div>
+</div>
+
+<br>
+<br>
+<main>
+  <section id="about" class="about">
+    <h2>Sobre Mim</h2>
+    <p>Sou um programador dedicado com paixão por criar soluções eficientes, elegantes e funcionais. Tenho experiência em [linguagens ou tecnologias]. Estou sempre em busca de aprender mais e contribuir para projetos incríveis.</p>
+  </section>
+
+  <br>
+  <br>
+
+  <section id="habilidades" class="minhas habilidades"></section>
+  <h3>Com o que eu trabalho</h3>
+  <br>
+
+   <div class="skills">
+      <div class="skill">JavaScript</div>
+      <div class="skill">React</div>
+      <div class="skill">Node.js</div>
+      <div class="skill">Python</div>
+      <div class="skill">CSS</div>
+      <div class="skill">Design UI/UX</div>
+    </div>
+
+    <br>
+
+    <section id="projects" class="projects section-spacing">
+        <h2>Projetos</h2>
+        <div class="projects-grid">
+
+
+
+             <!-- Projeto 1 -->
+            <div class="project-card" onclick="openModal('project4')">
+                <div class="project-image">
+                    <img src="Captura de tela 2025-06-30 150031.png" alt="conversor de moedas" />
+                </div>
+                <div class="project-info">
+
+                    <h3> Conversor de moedas</h3>
+                    <a href="http://127.0.0.1:5500/projetos.html"> Visualizar Projeto </a>
+                    <p> Conversor de moedas simples.</p>
+                    <div class="project-tags">
+                        <span class="tag">Javascript</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">HTML</span>
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Projeto 2 -->
+            <div class="project-card" onclick="openModal('project1')">
+                <div class="project-image">
+                    <img src="Captura de tela 2025-06-30 144904.png" alt="Editora de livros de terror e suspense latinos" />
+                </div>
+                <div class="project-info">
+
+                    <h3>Site ditora Lá Catrina</h3>
+                    <a href="http://127.0.0.1:5500/livraria.html"> Visualizar Projeto </a>
+                    <p> Site de uma editora fictica, com sistema de login e compra.</p>
+                    <div class="project-tags">
+                        <span class="tag">Javascript</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">HTML</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 3 -->
+            <div class="project-card" onclick="openModal('project2')">
+                <div class="project-image">
+                    <img src="Captura de tela 2025-06-30 133929.png" alt="Loja online elegante com produtos dispostos em grid" />
+                </div>
+                <div class="project-info">
+
+                    <h3>Taylor Swift Game</h3>
+                    <a href="http://127.0.0.1:5500/jogotay.html"> Visualizar Projeto </a>
+                    <p> Escape dos papparazi e acerte as perguntas para chegar ao fim da turnê.</p>
+                    <div class="project-tags">
+                        <span class="tag">Javascript</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">HTML</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Projeto 4 -->
+            <div class="project-card" onclick="openModal('project3')">
+                <div class="project-image">
+                    <img src="Captura de tela 2025-06-30 144254.png" alt="Aplicativo móvel fitness para calculo hidrico" />
+                </div>
+                <div class="project-info">
+                    <h3>App Saúde</h3>
+                    <a href="http://127.0.0.1:5500/appsaude.html"> Visualizar Projeto </a>
+                    <p>Aplicativo para calculo de necessidade hidrica e lembretes.</p>
+                    <div class="project-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        
+        </div>
+
+    
+            
+    </section>
+
+    <!-- SEÇÃO DE SERVIÇOS CONTRATÁVEIS -->
+    <section id="servicos" class="services-section section-spacing">
+        <h2>Serviços Contratáveis</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Desenvolvimento Web</h3>
+                <p>Sites responsivos e modernos com designs personalizados</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>E-commerce</h3>
+                <p>Lojas virtuais completas com sistema de pagamentos</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>Aplicativos Mobile</h3>
+                <p>Apps Android e iOS com designs intuitivos</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>Design UI/UX</h3>
+                <p>Interfaces bonitas e funcionais para melhor experiência</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>Sistemas Web</h3>
+                <p>Soluções personalizadas para automação de processos</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>Manutenção</h3>
+                <p>Atualizações e melhorias contínuas para seus sistemas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <h3>Contato</h3>
+        <div class="contact-links">
+            <a href="mailto:natalymonique18@gmail.com">Email</a>
+            <a href="https://github.com/Naty-moniss" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/nataly-m-b521b4224/" target="_blank">LinkedIn</a>
+        </div>
+        <p>© 2024 Nataly Monique. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedText = document.getElementById('animated-text');
+            if (animatedText) {
+                animatedText.style.animation = 'typing 3s steps(30, end) forwards';
+            }
+        });
+
+
+let currentLanguage = 'en'; // Idioma padrão
+function loadTranslations() {
+    fetch(`/locales/${currentLanguage}.json`)
+        .then(response => response.json())
+        .then(translations => {
+            document.querySelector('title').innerText = translations.title;
+            document.getElementById('about').innerText = translations.about;
+            document.getElementById('projects').innerText = translations.projects;
+            document.getElementById('contact').innerText = translations.contact;
+        });
+}
+// Chame a função para carregar as traduções
+loadTranslations()
+
+
+
+document.getElementById('language-button').addEventListener('click', function() {
+    const languageList = document.getElementById('language-list');
+    languageList.classList.toggle('hidden'); // Alterna a visibilidade da lista
+});
+// Adiciona evento de clique para cada item da lista
+const languageItems = document.querySelectorAll('#language-list li');
+languageItems.forEach(item => {
+    item.addEventListener('click', function() {
+        const selectedLanguage = this.getAttribute('data-lang');
+        changeLanguage(selectedLanguage);
+        document.getElementById('language-list').classList.add('hidden'); // Fecha a lista após a seleção
+    });
+});
+// Função para mudar o idioma
+function changeLanguage(lang) {
+    // Aqui você pode implementar a lógica para carregar as traduções
+    currentLanguage = lang;
+    loadTranslations(); // Chame a função que carrega as traduções
+}
+
+
+    </script>
+</body>
+</html>
